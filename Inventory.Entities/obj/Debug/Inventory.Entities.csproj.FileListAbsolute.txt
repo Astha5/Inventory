@@ -1,0 +1,6 @@
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory.Entities\obj\Debug\Inventory.Entities.csprojAssemblyReference.cache
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory.Entities\obj\Debug\Inventory.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory.Entities\bin\Debug\Inventory.Entities.dll
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory.Entities\bin\Debug\Inventory.Entities.pdb
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory.Entities\obj\Debug\Inventory.Entities.dll
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory.Entities\obj\Debug\Inventory.Entities.pdb

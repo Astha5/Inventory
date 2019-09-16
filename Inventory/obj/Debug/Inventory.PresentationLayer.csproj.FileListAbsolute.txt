@@ -1,0 +1,32 @@
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.exe.config
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.exe
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.pdb
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.BusinessLayer.dll
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.DataAccessLayer.dll
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.Entities.dll
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.PresentationLayer.dll
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.BusinessLayer.pdb
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.DataAccessLayer.pdb
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.Entities.pdb
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.PresentationLayer.pdb
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.PresentationLayer.csprojAssemblyReference.cache
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.PresentationLayer.csproj.CoreCompileInputs.cache
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.PresentationLayer.csproj.CopyComplete
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.exe
+C:\Users\Pulak Sinha\Documents\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.pdb
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.exe.config
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.exe
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.pdb
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.BusinessLayer.dll
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.DataAccessLayer.dll
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.Entities.dll
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.PresentationLayer.dll
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.BusinessLayer.pdb
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.DataAccessLayer.pdb
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.Entities.pdb
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\bin\Debug\Inventory.PresentationLayer.pdb
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.PresentationLayer.csprojAssemblyReference.cache
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.PresentationLayer.csproj.CoreCompileInputs.cache
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.PresentationLayer.csproj.CopyComplete
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.exe
+C:\Users\Dell\source\repos\Lab1\InventoryGroupC\InventoryGroupC\Inventory\obj\Debug\Inventory.pdb
