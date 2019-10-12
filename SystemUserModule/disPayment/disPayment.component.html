@@ -1,0 +1,322 @@
+<div class="row">
+  <div class="col-md-3 col-lg-2 ml-0 pl-0 pt-0 pr-0 border-right left-menu">
+    <div class="p-2">
+      <h5>
+        RawMaterialPayment <span class="badge badge-secondary float-right" *ngIf="distributorsPayment.length > 0">{{distributorsPayment.length}}</span>
+      </h5>
+    </div>
+    <div class="list-group mb-5">
+      <a class="list-group-item list-group-item-action list-group-item-primary" data-toggle="modal" href="#newDistributorPaymentModal" (click)="onCreateDistributorPaymentClick()">Add Product Payment</a>
+    </div>
+    <div class="p-2 border-top"><h5>View</h5></div>
+    <div class="px-2">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewInvoiceCode" [(ngModel)]="viewDistributorPaymentCheckBoxes.orderInvoiceCode">
+        <label class="form-check-label" for="viewInvoiceCode">
+          Invoice Code
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewDistributorName" [(ngModel)]="viewDistributorPaymentCheckBoxes.distributorName">
+        <label class="form-check-label" for="viewDistributorName">
+          Distributor Name
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewProductName" [(ngModel)]="viewDistributorPaymentCheckBoxes.prodName">
+        <label class="form-check-label" for="viewRawMaterialName">
+          Raw Material
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewOrderCreatedOn" [(ngModel)]="viewDistributorPaymentCheckBoxes.orderCreationDate">
+        <label class="form-check-label" for="viewOrderCreatedOn">
+          Order Created On
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="ViewPaymentMethod" [(ngModel)]="viewDistributorPaymentCheckBoxes.paymentMethod">
+        <label class="form-check-label" for="viewPaymentMethod">
+          Payment Method
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="ViewPaymentStatus" [(ngModel)]="viewDistributorPaymentCheckBoxes.paymentStatus">
+        <label class="form-check-label" for="viewPaymentStatus">
+          Payment Status
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-secondary btn-sm mr-1" (click)="onViewSelectAllClick()">Select All</button>
+        <button class="btn btn-secondary btn-sm" (click)="onViewDeselectAllClick()">Deselect All</button>
+      </div>
+    </div>
+    <div class="p-2 border-top mt-4"><h5>Sort by</h5></div>
+    <div class="px-2">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="sortBy">
+          <option value="distributorName">Distributor Name</option>
+          <option value="prodName">Raw Material Name</option>
+          <option value="orderCreationDate">Order Created On</option>
+        </select>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortAscending" value="ASC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortAscending">
+          Ascending
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortDescending" value="DESC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortDescending">
+          Descending
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-secondary btn-sm mr-1 px-3" (click)="onBtnSortClick()">Sort</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 col-lg-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Product Payments
+          <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showDistributorsPaymentSpinner"></i>
+        </li>
+      </ol>
+    </nav>
+    <!--<h4>Distributors </h4>-->
+    <!--<button class="btn btn-primary" data-toggle="modal" data-target="#newDistributorModal" (click)="onCreateDistributorClick()">Create Distributor</button>-->
+
+    <table class="table mt-2">
+      <thead>
+        <tr class="table-secondary">
+          <th *ngIf="viewDistributorPaymentCheckBoxes.orderInvoiceCode">Invoice Code</th>
+          <th *ngIf="viewDistributorPaymentCheckBoxes.distributorName">Distributor Name</th>
+          <th *ngIf="viewDistributorPaymentCheckBoxes.prodName">Product</th>
+          <th *ngIf="viewDistributorPaymentCheckBoxes.disTransNo">Transaction No</th>
+          <th *ngIf="viewDistributorPaymentCheckBoxes.orderCreationDate">Order Created on</th>
+          <th *ngIf="viewDistributorPaymentCheckBoxes.paymentMethod">Payment Method</th>
+          <th *ngIf="viewDistributorPaymentCheckBoxes.paymentStatus">Payment Status</th>
+          <th class="text-secondary">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dis of distributorsPayment; let index = index">
+          <td *ngIf="viewDistributorPaymentCheckBoxes.orderInvoiceCode">{{dis.orderInvoiceCode}}</td>
+          <td style="font-size:120%" *ngIf="viewDistributorPaymentCheckBoxes.distributorName">{{dis.distributorName}}</td>
+          <td *ngIf="viewDistributorPaymentCheckBoxes.prodName">{{dis.prodName}}</td>
+          <td *ngIf="viewDistributorPaymentCheckBoxes.disTransNo">{{dis.disTransNo}}</td>
+          <td *ngIf="viewDistributorPaymentCheckBoxes.orderCreationDate">{{dis.orderCreationDate}}</td>
+          <td *ngIf="viewDistributorPaymentCheckBoxes.paymentMethod">{{dis.paymentMethod}}</td>
+          <td *ngIf="viewDistributorPaymentCheckBoxes.paymentStatus">{{dis.paymentStatus}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editDistributorPaymentModal" (click)="onEditDistributorPaymentClick(index)">Edit</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteDistributorPaymentModal" (click)="onDeleteDistributorPaymentClick(index)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- New Distributor Modal -->
+<form [formGroup]="newDistributorPaymentForm">
+  <div class="modal fade" id="newDistributorPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Create Product Payment</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <label for="orderInvoiceCode" class="col-form-label col-md-4">Imvoice Code: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Invoice Code" class="form-control" id="orderInvoiceCode" formControlName="orderInvoiceCode" [ngClass]="getFormControlCssClass(newDistributorPaymentForm.get('orderInvoiceCode'), newDistributorPaymentForm)" />
+              <small class="form-text text-muted">Invoice Code of Raw Material Order | Should be of 4 digits.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('orderInvoiceCode', 'required', newDistributorPaymentForm)">{{getFormControlErrorMessage('orderInvoiceCode', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="distributorName1" class="col-form-label col-md-4">Distributor Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Distributor Name" class="form-control" id="distributorName1" formControlName="distributorName" [ngClass]="getFormControlCssClass(newDistributorPaymentForm.get('distributorName'), newDistributorPaymentForm)" />
+              <small class="form-text text-muted">Distributor name of corresponding order </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'required', newDistributorPaymentForm)">{{getFormControlErrorMessage('distributorName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'minlength', newDistributorPaymentForm)">{{getFormControlErrorMessage('distributorName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'maxlength', newDistributorPaymentForm)">{{getFormControlErrorMessage('distributorName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="prodMaterialName" class="col-form-label col-md-4">Product Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Raw Material Name" class="form-control" id="prodMaterialName" formControlName="prodName" [ngClass]="getFormControlCssClass(newDistributorPaymentForm.get('prodName'), newDistributorPaymentForm)" />
+              <small class="form-text text-muted">Raw Material name of corresponding order </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('prodName', 'required', newDistributorPaymentForm)">{{getFormControlErrorMessage('prodName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('prodName', 'minlength', newDistributorPaymentForm)">{{getFormControlErrorMessage('prodName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('prodName', 'maxlength', newDistributorPaymentForm)">{{getFormControlErrorMessage('prodName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="disTransNo" class="col-form-label col-md-4">Transaction No: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Transaction No." class="form-control" id="disTransNo" formControlName="disTransNo" [ngClass]="getFormControlCssClass(newDistributorPaymentForm.get('disTransNo'), newDistributorPaymentForm)" />
+              <small class="form-text text-muted">Transaction No of Payment | Should be of 6 digits.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('disTransNo', 'required', newDistributorPaymentForm)">{{getFormControlErrorMessage('disTransNo', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="paymentMethod" class="col-form-label col-md-4">Payment Method: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Payment Method" class="form-control" id="paymentMethod" formControlName="paymentMethod" [ngClass]="getFormControlCssClass(newDistributorPaymentForm.get('paymentMethod'), newDistributorPaymentForm)" />
+              <small class="form-text text-muted">Can't be Blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('paymentMethod', 'required', newDistributorPaymentForm)">{{getFormControlErrorMessage('paymentMethod', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="paymentStatus" class="col-form-label col-md-4">Payment Status: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Status" class="form-control" id="paymentStatus" formControlName="paymentStatus" [ngClass]="getFormControlCssClass(newDistributorPaymentForm.get('paymentStatus'), newDistributorPaymentForm)" />
+              <small class="form-text text-muted">Can't be blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('paymentStatus', 'required', newDistributorPaymentForm)">{{getFormControlErrorMessage('paymentStatus', 'required')}}</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnAddDistributorPaymentCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-success" (click)="onAddDistributorPaymentClick($event)" [disabled]="newDistributorPaymentDisabled">
+            <span *ngIf="!newDistributorPaymentDisabled"><i class="fa fa-save"></i> Save</span>
+            <span *ngIf="newDistributorpaymentDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- Edit Distributor Payment Modal -->
+<form [formGroup]="editDistributorPaymentForm">
+  <div class="modal fade" id="editDistributorPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Update Distributor Payment</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <label for="orderInvoiceCode" class="col-form-label col-md-4">Imvoice Code: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Invoice Code" class="form-control" id="orderInvoiceCode" formControlName="orderInvoiceCode" [ngClass]="getFormControlCssClass(editDistributorPaymentForm.get('orderInvoiceCode'), editDistributorPaymentForm)" />
+              <small class="form-text text-muted">Invoice Code of Raw Material Order | Should be of 4 digits.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('orderInvoiceCode', 'required', editDistributorPaymentForm)">{{getFormControlErrorMessage('orderInvoiceCode', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="distributorName1" class="col-form-label col-md-4">Distributor Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Distributor Name" class="form-control" id="distributorName1" formControlName="distributorName" [ngClass]="getFormControlCssClass(editDistributorPaymentForm.get('distributorName'), editDistributorPaymentForm)" />
+              <small class="form-text text-muted">Distributor name of corresponding order </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'required', editDistributorPaymentForm)">{{getFormControlErrorMessage('distributorName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'minlength', editDistributorPaymentForm)">{{getFormControlErrorMessage('distributorName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'maxlength', editDistributorPaymentForm)">{{getFormControlErrorMessage('distributorName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="prodMaterialName" class="col-form-label col-md-4">Product Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Raw Material Name" class="form-control" id="prodMaterialName" formControlName="prodName" [ngClass]="getFormControlCssClass(editDistributorPaymentForm.get('prodName'), editDistributorPaymentForm)" />
+              <small class="form-text text-muted">Raw Material name of corresponding order </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('prodName', 'required', editDistributorPaymentForm)">{{getFormControlErrorMessage('prodName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('prodName', 'minlength', editDistributorPaymentForm)">{{getFormControlErrorMessage('prodName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('prodName', 'maxlength', editDistributorPaymentForm)">{{getFormControlErrorMessage('prodName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="disTransNo" class="col-form-label col-md-4">Transaction No: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Transaction No." class="form-control" id="disTransNo" formControlName="disTransNo" [ngClass]="getFormControlCssClass(editDistributorPaymentForm.get('disTransNo'), editDistributorPaymentForm)" />
+              <small class="form-text text-muted">Transaction No of Payment | Should be of 6 digits.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('disTransNo', 'required', editDistributorPaymentForm)">{{getFormControlErrorMessage('disTransNo', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="paymentMethod" class="col-form-label col-md-4">Payment Method: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Payment Method" class="form-control" id="paymentMethod" formControlName="paymentMethod" [ngClass]="getFormControlCssClass(editDistributorPaymentForm.get('paymentMethod'), editDistributorPaymentForm)" />
+              <small class="form-text text-muted">Can't be Blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('paymentMethod', 'required', editDistributorPaymentForm)">{{getFormControlErrorMessage('paymentMethod', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="paymentStatus" class="col-form-label col-md-4">Payment Status: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Status" class="form-control" id="paymentStatus" formControlName="paymentStatus" [ngClass]="getFormControlCssClass(editDistributorPaymentForm.get('paymentStatus'), editDistributorPaymentForm)" />
+              <small class="form-text text-muted">Can't be blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('paymentStatus', 'required', editDistributorPaymentForm)">{{getFormControlErrorMessage('paymentStatus', 'required')}}</span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnUpdateDistributorPaymentCancel">
+              <i class="fa fa-times-circle"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-success" (click)="onUpdateDistributorPaymentClick($event)" [disabled]="editDistributorPaymentDisabled">
+              <span *ngIf="!editDistributorPaymentDisabled"><i class="fa fa-save"></i> Save</span>
+              <span *ngIf="editDistributorPaymentDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- Delete Distributor Modal -->
+<form [formGroup]="deleteDistributorPaymentForm">
+  <div class="modal fade" id="deleteDistributorPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Delete Distributor Payment</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 class="mb-4">Are you sure to delete this Distributor Payment?</h5>
+          <div class="form-group form-row">
+            <label for="disTransNo" class="col-form-label col-md-4">Transaction No.</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Transaction No." readonly="readonly" class="form-control-plaintext" id="disTransNo" formControlName="disTransNo" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnDeleteDistributorPaymentCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-danger" (click)="onDeleteDistributorPaymentConfirmClick($event)" [disabled]="deleteDistributorPaymentDisabled">
+            <span *ngIf="!deleteDistributorPaymentDisabled"><i class="fa fa-save"></i> Delete</span>
+            <span *ngIf="deleteDistributorPaymentDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Deleting</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

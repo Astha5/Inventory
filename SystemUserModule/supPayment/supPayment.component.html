@@ -1,0 +1,322 @@
+<div class="row">
+  <div class="col-md-3 col-lg-2 ml-0 pl-0 pt-0 pr-0 border-right left-menu">
+    <div class="p-2">
+      <h5>
+        RawMaterialPayment <span class="badge badge-secondary float-right" *ngIf="suppliersPayment.length > 0">{{suppliersPayment.length}}</span>
+      </h5>
+    </div>
+    <div class="list-group mb-5">
+      <a class="list-group-item list-group-item-action list-group-item-primary" data-toggle="modal" href="#newSupplierPaymentModal" (click)="onCreateSupplierPaymentClick()">Add Raw Material Payment</a>
+    </div>
+    <div class="p-2 border-top"><h5>View</h5></div>
+    <div class="px-2">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewInvoiceCode" [(ngModel)]="viewSupplierPaymentCheckBoxes.orderInvoiceCode">
+        <label class="form-check-label" for="viewInvoiceCode">
+          Invoice Code
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewSupplierName" [(ngModel)]="viewSupplierPaymentCheckBoxes.supplierName">
+        <label class="form-check-label" for="viewSupplierName">
+          Supplier Name
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewRawMaterialName" [(ngModel)]="viewSupplierPaymentCheckBoxes.rawName">
+        <label class="form-check-label" for="viewRawMaterialName">
+          Raw Material
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewOrderCreatedOn" [(ngModel)]="viewSupplierPaymentCheckBoxes.orderCreationDate">
+        <label class="form-check-label" for="viewOrderCreatedOn">
+          Order Created On
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="ViewPaymentMethod" [(ngModel)]="viewSupplierPaymentCheckBoxes.paymentMethod">
+        <label class="form-check-label" for="viewPaymentMethod">
+          Payment Method
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="ViewPaymentStatus" [(ngModel)]="viewSupplierPaymentCheckBoxes.paymentStatus">
+        <label class="form-check-label" for="viewPaymentStatus">
+          Payment Status
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-secondary btn-sm mr-1" (click)="onViewSelectAllClick()">Select All</button>
+        <button class="btn btn-secondary btn-sm" (click)="onViewDeselectAllClick()">Deselect All</button>
+      </div>
+    </div>
+    <div class="p-2 border-top mt-4"><h5>Sort by</h5></div>
+    <div class="px-2">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="sortBy">
+          <option value="supplierName">Supplier Name</option>
+          <option value="rawName">Raw Material Name</option>
+          <option value="orderCreationDate">Order Created On</option>
+        </select>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortAscending" value="ASC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortAscending">
+          Ascending
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortDescending" value="DESC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortDescending">
+          Descending
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-secondary btn-sm mr-1 px-3" (click)="onBtnSortClick()">Sort</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 col-lg-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Admin</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Raw Material Payments
+          <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showSuppliersPaymentSpinner"></i>
+        </li>
+      </ol>
+    </nav>
+    <!--<h4>Suppliers </h4>-->
+    <!--<button class="btn btn-primary" data-toggle="modal" data-target="#newSupplierModal" (click)="onCreateSupplierClick()">Create Supplier</button>-->
+
+    <table class="table mt-2">
+      <thead>
+        <tr class="table-secondary">
+          <th *ngIf="viewSupplierPaymentCheckBoxes.orderInvoiceCode">Invoice Code</th>
+          <th *ngIf="viewSupplierPaymentCheckBoxes.supplierName">Supplier Name</th>
+          <th *ngIf="viewSupplierPaymentCheckBoxes.rawName">Raw Material</th>
+          <th *ngIf="viewSupplierPaymentCheckBoxes.supTransNo">Transaction No</th>
+          <th *ngIf="viewSupplierPaymentCheckBoxes.orderCreationDate">Order Created on</th>
+          <th *ngIf="viewSupplierPaymentCheckBoxes.paymentMethod">Payment Method</th>
+          <th *ngIf="viewSupplierPaymentCheckBoxes.paymentStatus">Payment Status</th>
+          <th class="text-secondary">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sup of suppliersPayment; let index = index">
+          <td *ngIf="viewSupplierPaymentCheckBoxes.orderInvoiceCode">{{sup.orderInvoiceCode}}</td>
+          <td style="font-size:120%" *ngIf="viewSupplierPaymentCheckBoxes.supplierName">{{sup.supplierName}}</td>
+          <td *ngIf="viewSupplierPaymentCheckBoxes.rawName">{{sup.rawName}}</td>
+          <td *ngIf="viewSupplierPaymentCheckBoxes.supTransNo">{{sup.supTransNo}}</td>
+          <td *ngIf="viewSupplierPaymentCheckBoxes.orderCreationDate">{{sup.orderCreationDate}}</td>
+          <td *ngIf="viewSupplierPaymentCheckBoxes.paymentMethod">{{sup.paymentMethod}}</td>
+          <td *ngIf="viewSupplierPaymentCheckBoxes.paymentStatus">{{sup.paymentStatus}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editSupplierPaymentModal" (click)="onEditSupplierPaymentClick(index)">Edit</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteSupplierPaymentModal" (click)="onDeleteSupplierPaymentClick(index)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- New Supplier Modal -->
+<form [formGroup]="newSupplierPaymentForm">
+  <div class="modal fade" id="newSupplierPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Create Raw Material Payment</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <label for="orderInvoiceCode" class="col-form-label col-md-4">Imvoice Code: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Invoice Code" class="form-control" id="orderInvoiceCode" formControlName="orderInvoiceCode" [ngClass]="getFormControlCssClass(newSupplierPaymentForm.get('orderInvoiceCode'), newSupplierPaymentForm)" />
+              <small class="form-text text-muted">Invoice Code of Raw Material Order | Should be of 4 digits.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('orderInvoiceCode', 'required', newSupplierPaymentForm)">{{getFormControlErrorMessage('orderInvoiceCode', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="supplierName1" class="col-form-label col-md-4">Supplier Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Supplier Name" class="form-control" id="supplierName1" formControlName="supplierName" [ngClass]="getFormControlCssClass(newSupplierPaymentForm.get('supplierName'), newSupplierPaymentForm)" />
+              <small class="form-text text-muted">Supplier name of corresponding order </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supplierName', 'required', newSupplierPaymentForm)">{{getFormControlErrorMessage('supplierName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supplierName', 'minlength', newSupplierPaymentForm)">{{getFormControlErrorMessage('supplierName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supplierName', 'maxlength', newSupplierPaymentForm)">{{getFormControlErrorMessage('supplierName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="rawMaterialName" class="col-form-label col-md-4">Raw Material Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Raw Material Name" class="form-control" id="rawMaterialName" formControlName="rawName" [ngClass]="getFormControlCssClass(newSupplierPaymentForm.get('rawName'), newSupplierPaymentForm)" />
+              <small class="form-text text-muted">Raw Material name of corresponding order </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('rawName', 'required', newSupplierPaymentForm)">{{getFormControlErrorMessage('rawName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('rawName', 'minlength', newSupplierPaymentForm)">{{getFormControlErrorMessage('rawName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('rawName', 'maxlength', newSupplierPaymentForm)">{{getFormControlErrorMessage('rawName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="supTransNo" class="col-form-label col-md-4">Transaction No: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Transaction No." class="form-control" id="supTransNo" formControlName="supTransNo" [ngClass]="getFormControlCssClass(newSupplierPaymentForm.get('supTransNo'), newSupplierPaymentForm)" />
+              <small class="form-text text-muted">Transaction No of Payment | Should be of 6 digits.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supTransNo', 'required', newSupplierPaymentForm)">{{getFormControlErrorMessage('supTransNo', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="paymentMethod" class="col-form-label col-md-4">Payment Method: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Payment Method" class="form-control" id="paymentMethod" formControlName="paymentMethod" [ngClass]="getFormControlCssClass(newSupplierPaymentForm.get('paymentMethod'), newSupplierPaymentForm)" />
+              <small class="form-text text-muted">Can't be Blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('paymentMethod', 'required', newSupplierPaymentForm)">{{getFormControlErrorMessage('paymentMethod', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="paymentStatus" class="col-form-label col-md-4">Payment Status: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Status" class="form-control" id="paymentStatus" formControlName="paymentStatus" [ngClass]="getFormControlCssClass(newSupplierPaymentForm.get('paymentStatus'), newSupplierPaymentForm)" />
+              <small class="form-text text-muted">Can't be blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('paymentStatus', 'required', newSupplierPaymentForm)">{{getFormControlErrorMessage('paymentStatus', 'required')}}</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnAddSupplierPaymentCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-success" (click)="onAddSupplierPaymentClick($event)" [disabled]="newSupplierPaymentDisabled">
+            <span *ngIf="!newSupplierPaymentDisabled"><i class="fa fa-save"></i> Save</span>
+            <span *ngIf="newSupplierpaymentDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- Edit Supplier Payment Modal -->
+<form [formGroup]="editSupplierPaymentForm">
+  <div class="modal fade" id="editSupplierPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Update Supplier Payment</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <label for="orderInvoiceCode" class="col-form-label col-md-4">Imvoice Code: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Invoice Code" class="form-control" id="orderInvoiceCode" formControlName="orderInvoiceCode" [ngClass]="getFormControlCssClass(editSupplierPaymentForm.get('orderInvoiceCode'), editSupplierPaymentForm)" />
+              <small class="form-text text-muted">Invoice Code of Raw Material Order | Should be of 4 digits.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('orderInvoiceCode', 'required', editSupplierPaymentForm)">{{getFormControlErrorMessage('orderInvoiceCode', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="supplierName1" class="col-form-label col-md-4">Supplier Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Supplier Name" class="form-control" id="supplierName1" formControlName="supplierName" [ngClass]="getFormControlCssClass(editSupplierPaymentForm.get('supplierName'), editSupplierPaymentForm)" />
+              <small class="form-text text-muted">Supplier name of corresponding order </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supplierName', 'required', editSupplierPaymentForm)">{{getFormControlErrorMessage('supplierName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supplierName', 'minlength', editSupplierPaymentForm)">{{getFormControlErrorMessage('supplierName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supplierName', 'maxlength', editSupplierPaymentForm)">{{getFormControlErrorMessage('supplierName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="rawMaterialName" class="col-form-label col-md-4">Raw Material Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Raw Material Name" class="form-control" id="rawMaterialName" formControlName="rawName" [ngClass]="getFormControlCssClass(editSupplierPaymentForm.get('rawName'), editSupplierPaymentForm)" />
+              <small class="form-text text-muted">Raw Material name of corresponding order </small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('rawName', 'required', editSupplierPaymentForm)">{{getFormControlErrorMessage('rawName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('rawName', 'minlength', editSupplierPaymentForm)">{{getFormControlErrorMessage('rawName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('rawName', 'maxlength', editSupplierPaymentForm)">{{getFormControlErrorMessage('rawName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="supTransNo" class="col-form-label col-md-4">Transaction No: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Transaction No." class="form-control" id="supTransNo" formControlName="supTransNo" [ngClass]="getFormControlCssClass(editSupplierPaymentForm.get('supTransNo'), editSupplierPaymentForm)" />
+              <small class="form-text text-muted">Transaction No of Payment | Should be of 6 digits.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('supTransNo', 'required', editSupplierPaymentForm)">{{getFormControlErrorMessage('supTransNo', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="paymentMethod" class="col-form-label col-md-4">Payment Method: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Payment Method" class="form-control" id="paymentMethod" formControlName="paymentMethod" [ngClass]="getFormControlCssClass(editSupplierPaymentForm.get('paymentMethod'), editSupplierPaymentForm)" />
+              <small class="form-text text-muted">Can't be Blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('paymentMethod', 'required', editSupplierPaymentForm)">{{getFormControlErrorMessage('paymentMethod', 'required')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="paymentStatus" class="col-form-label col-md-4">Payment Status: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Status" class="form-control" id="paymentStatus" formControlName="paymentStatus" [ngClass]="getFormControlCssClass(editSupplierPaymentForm.get('paymentStatus'), editSupplierPaymentForm)" />
+              <small class="form-text text-muted">Can't be blank.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('paymentStatus', 'required', editSupplierPaymentForm)">{{getFormControlErrorMessage('paymentStatus', 'required')}}</span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnUpdateSupplierPaymentCancel">
+              <i class="fa fa-times-circle"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-success" (click)="onUpdateSupplierPaymentClick($event)" [disabled]="editSupplierPaymentDisabled">
+              <span *ngIf="!editSupplierPaymentDisabled"><i class="fa fa-save"></i> Save</span>
+              <span *ngIf="editSupplierPaymentDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- Delete Supplier Modal -->
+<form [formGroup]="deleteSupplierPaymentForm">
+  <div class="modal fade" id="deleteSupplierPaymentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Delete Supplier Payment</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 class="mb-4">Are you sure to delete this Supplier Payment?</h5>
+          <div class="form-group form-row">
+            <label for="supTransNo" class="col-form-label col-md-4">Transaction No.</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Transaction No." readonly="readonly" class="form-control-plaintext" id="supTransNo" formControlName="supTransNo" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnDeleteSupplierPaymentCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-danger" (click)="onDeleteSupplierPaymentConfirmClick($event)" [disabled]="deleteSupplierPaymentDisabled">
+            <span *ngIf="!deleteSupplierPaymentDisabled"><i class="fa fa-save"></i> Delete</span>
+            <span *ngIf="deleteSupplierPaymentDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Deleting</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

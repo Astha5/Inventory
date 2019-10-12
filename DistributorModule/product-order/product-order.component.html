@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-md-3 col-lg-2 ml-0 pl-0 pt-0 pr-0 border-right left-menu">
+    <div class="p-2">
+      <h5>
+        Products Order <span class="badge badge-secondary float-right" *ngIf="productOrder.length > 0">{{productOrder.length}}</span>
+      </h5>
+    </div>
+    <div class="list-group mb-5">
+      <a class="list-group-item list-group-item-action list-group-item-primary" data-toggle="modal" href="#newProductOrderModal" (click)="onAddProductOrderClick()">Add Product Order</a>
+    </div>
+
+    <div class="col-md-9 col-lg-10">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Admin</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Product Order
+            <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showProductOrderSpinner"></i>
+          </li>
+        </ol>
+      </nav>
+      <!--<h4>Products </h4>-->
+      <!--<button class="btn btn-primary" data-toggle="modal" data-target="#newProductsModal" (click)="onCreateProductsClick()">Create Product</button>-->
+
+    </div>
+  </div>
+
+
+  <!-- New Product Order Modal -->
+  <form [formGroup]="newProductOrderForm">
+    <div class="modal fade" id="newProductOrderModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-info text-white">
+            <h5 class="modal-title">Create Product Order</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <div class="form-group form-row">
+              <label for="productName" class="col-form-label col-md-4">Product Name: *</label>
+              <div class="col-md-8">
+                <select class="form-control" [ngClass]="{ 'is-invalid': orderDetail.get('productID').invalid && (productOrder.get('productID').dirty || productOrder.get('productID').touched || newProductOrderForm['submitted']) }" formControlName="productID" (change)="onproductDropDownChange(index)">
+                  <option value="">Please Select</option>
+                  <option *ngFor="let product of products" [value]="product.productID">
+                    {{product.productName}}
+                  </option>
+                </select>
+                <!--[ngClass]="getFormControlCssClass(newProductsForm.get('productName'), newProductsForm)" />
+      <small class="form-text text-muted">Name of the product | Can't be duplicate.</small>
+      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('productName', 'required', newProductsForm)">{{getFormControlErrorMessage('productName', 'required')}}</span>
+      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('productName', 'minlength', newProductsForm)">{{getFormControlErrorMessage('productName', 'minlength')}}</span>
+      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('productName', 'maxlength', newProductsForm)">{{getFormControlErrorMessage('productName', 'maxlength')}}</span>-->
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="productType" class="col-form-label col-md-4">Product Type:</label>
+              <div class="col-md-8">
+                <select id="productType" formControlName="productType" style="width:50%; padding:8px; border:inset " (change)="onProductDropDownChange(index)">
+                  <option>Juice</option>
+                  <option>Soft Drink</option>
+                  <option>Mocktail</option>
+                  <option>Energy Drink</option>
+                  <option>Tonic Water</option>
+                </select>
+                <!--<input type="text" placeholder="Product Type" class="form-control" id="productType" formControlName="productType"/>-->
+                <!--[ngClass]="getFormControlCssClass(newProductsForm.get('productType'), newProductsForm)" />
+      <small class="form-text text-muted">Product Type</small>
+      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('productType', 'required', newProductsForm)">{{getFormControlErrorMessage('productType', 'required')}}</span>
+      <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('productType', 'pattern', newProductsForm)">{{getFormControlErrorMessage('productType', 'pattern')}}</span>-->
+              </div>
+            </div>
+            <div class="form-group form-row">
+              <label for="unitPrice" class="col-form-label col-md-4">Unit Price:</label>
+              <div class="col-md-8">
+                <input type="text" placeholder="Unit Price" class="form-control" id="unitPrice" formControlName="unitPrice" />
+                <!--[ngClass]="getFormControlCssClass(newProductsForm.get('unitPrice'), newProductsForm)" />
+      <small class="form-text text-muted">Unit Price of Product </small>-->
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <label for="quantity" class="col-form-label col-md-4">Quantity:</label>
+              <div class="col-md-8">
+                <input type="text" placeholder="Quantity" class="form-control" id="quantity" formControlName="quantity" />
+                <!--[ngClass]="getFormControlCssClass(newProductsForm.get('unitPrice'), newProductsForm)" />
+      <small class="form-text text-muted">Unit Price of Product </small>-->
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnAddProductOrderCancel">
+              <i class="fa fa-times-circle"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-success" (click)="onAddProductOrderClick($event)" [disabled]="newProductOrderDisabled">
+              <span *ngIf="!newProductOrderDisabled"><i class="fa fa-save"></i> Save</span>
+              <span *ngIf="newProductOrderDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+ 
+
+
+  <!-- Delete Product Modal -->
+  <form [formGroup]="deleteProductForm">
+    <div class="modal fade" id="deleteproductModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-info text-white">
+            <h5 class="modal-title">Delete Product</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5 class="mb-4">Are you sure to delete this Product?</h5>
+            <div class="form-group form-row">
+              <label for="productrName" class="col-form-label col-md-4">Product Name:</label>
+              <div class="col-md-8">
+                <input type="text" placeholder="Product Name" readonly="readonly" class="form-control-plaintext" id="productName" formControlName="productName" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnDeleteProductCancel">
+              <i class="fa fa-times-circle"></i> Cancel
+            </button>
+            <button type="submit" class="btn btn-danger" (click)="onDeleteProductConfirmClick($event)" [disabled]="deleteProductDisabled">
+              <span *ngIf="!deleteProductDisabled"><i class="fa fa-save"></i> Delete</span>
+              <span *ngIf="deleteProductDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Deleting</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
+
+

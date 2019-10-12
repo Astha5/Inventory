@@ -1,0 +1,274 @@
+<div class="row">
+  <div class="col-md-3 col-lg-2 ml-0 pl-0 pt-0 pr-0 border-right left-menu">
+    <div class="p-2">
+      <h5>
+        Distributors <span class="badge badge-info float-right" *ngIf="distributors.length > 0">{{distributors.length}}</span>
+      </h5>
+    </div>
+    <div class="list-group mb-5">
+      <a class="list-group-item list-group-item-action list-group-item-primary" data-toggle="modal" href="#newDistributorModal" (click)="onCreateDistributorClick()">Create Distributor</a>
+    </div>
+    <div class="p-2 border-top"><h5>View</h5></div>
+    <div class="px-2">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewDistributorName" [(ngModel)]="viewDistributorCheckBoxes.distributorName">
+        <label class="form-check-label" for="viewDistributorName">
+          Distributor Name
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewMobile" [(ngModel)]="viewDistributorCheckBoxes.mobile">
+        <label class="form-check-label" for="viewMobile">
+          Mobile
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewEmail" [(ngModel)]="viewDistributorCheckBoxes.email">
+        <label class="form-check-label" for="viewEmail">
+          Email
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewCreatedOn" [(ngModel)]="viewDistributorCheckBoxes.createdOn">
+        <label class="form-check-label" for="viewCreatedOn">
+          Created On
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="viewLastModifiedOn" [(ngModel)]="viewDistributorCheckBoxes.lastModifiedOn">
+        <label class="form-check-label" for="viewLastModifiedOn">
+          Last Modified On
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-info btn-sm mr-1" (click)="onViewSelectAllClick()">Select All</button>
+        <button class="btn btn-info btn-sm" (click)="onViewDeselectAllClick()">Deselect All</button>
+      </div>
+    </div>
+
+    <div class="p-2 border-top mt-4"><h5>Sort by</h5></div>
+    <div class="px-2">
+      <div class="form-group">
+        <select class="form-control" [(ngModel)]="sortBy">
+          <option value="distributorName">Distributor Name</option>
+          <option value="distributorMobile">Mobile</option>
+          <option value="email">Email</option>
+          <option value="creationDateTime">Created On</option>
+          <option value="lastModifiedDateTime">Last Modified On</option>
+        </select>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortAscending" value="ASC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortAscending">
+          Ascending
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" id="sortDescending" value="DESC" [(ngModel)]="sortDirection">
+        <label class="form-check-label" for="sortDescending">
+          Descending
+        </label>
+      </div>
+      <div class="form-group my-2">
+        <button class="btn btn-info btn-sm mr-1 px-3" (click)="onBtnSortClick()">Sort</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-9 col-lg-10">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">SystemUser</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Distributors
+          <i class="fa fa-circle-o-notch  fa-spin" *ngIf="showDistributorsSpinner"></i>
+        </li>
+      </ol>
+    </nav>
+    <!--<h4>Distributors </h4>-->
+    <!--<button class="btn btn-primary" data-toggle="modal" data-target="#newDistributorModal" (click)="onCreateSupplierClick()">Create Distributor</button>-->
+    <table class="table mt-2">
+      <thead>
+        <tr class="table-info">
+          <th *ngIf="viewDistributorCheckBoxes.distributorName">Distributor Name</th>
+          <th *ngIf="viewDistributorCheckBoxes.mobile">Mobile</th>
+          <th *ngIf="viewDistributorCheckBoxes.email">Email</th>
+          <th *ngIf="viewDistributorCheckBoxes.createdOn">Created on</th>
+          <th *ngIf="viewDistributorCheckBoxes.lastModifiedOn">Last Modified on</th>
+          <th class="text-info">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let distributor of distributors; let index = index">
+          <td style="font-size:120%" *ngIf="viewDistributorCheckBoxes.distributorName">{{distributor.distributorName}}</td>
+          <td *ngIf="viewDistributorCheckBoxes.mobile">{{distributor.distributorMobile}}</td>
+          <td *ngIf="viewDistributorCheckBoxes.email">{{distributor.email}}</td>
+          <td *ngIf="viewDistributorCheckBoxes.createdOn">{{distributor.creationDateTime}}</td>
+          <td *ngIf="viewDistributorCheckBoxes.lastModifiedOn">{{distributor.lastModifiedDateTime}}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#editDistributorModal" (click)="onEditDistributorClick(index)">Edit</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#deleteDistributorModal" (click)="onDeleteDistributorClick(index)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- New Distributor Modal -->
+<form [formGroup]="newDistributorForm">
+  <div class="modal fade" id="newDistributorModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Create Distributor</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <label for="distributorName" class="col-form-label col-md-4">Distributor Name: *</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Distributor Name" class="form-control" id="distributorName" formControlName="distributorName" [ngClass]="getFormControlCssClass(newDistributorForm.get('distributorName'), newDistributorForm)" />
+              <small class="form-text text-muted">Name of the distributor | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'required', newDistributorForm)">{{getFormControlErrorMessage('distributorName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'minlength', newDistributorForm)">{{getFormControlErrorMessage('distributorName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'maxlength', newDistributorForm)">{{getFormControlErrorMessage('distributorName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="distributorMobile" class="col-form-label col-md-4">Mobile:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Mobile" class="form-control" id="distributorMobile" formControlName="distributorMobile" [ngClass]="getFormControlCssClass(newDistributorForm.get('distributorMobile'), newDistributorForm)" />
+              <small class="form-text text-muted">10 digit mobile number of the distributor | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorMobile', 'required', newDistributorForm)">{{getFormControlErrorMessage('distributorMobile', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorMobile', 'pattern', newDistributorForm)">{{getFormControlErrorMessage('distributorMobile', 'pattern')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="email" class="col-form-label col-md-4">Email:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Email" class="form-control" id="email" formControlName="email" [ngClass]="getFormControlCssClass(newDistributorForm.get('email'), newDistributorForm)" />
+              <small class="form-text text-muted">Email address of the distributor | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('email', 'required', newDistributorForm)">{{getFormControlErrorMessage('email', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('email', 'email', newDistributorForm)">{{getFormControlErrorMessage('email', 'email')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="password" class="col-form-label col-md-4">Password:</label>
+            <div class="col-md-8">
+              <input type="password" placeholder="Password" class="form-control" id="password" formControlName="password" [ngClass]="getFormControlCssClass(newDistributorForm.get('password'), newDistributorForm)" />
+              <small class="form-text text-muted">At least one uppercase letter, one lowercase letter and one digit.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('password', 'required', newDistributorForm)">{{getFormControlErrorMessage('password', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('password', 'pattern', newDistributorForm)">{{getFormControlErrorMessage('password', 'pattern')}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" id="btnAddDistributorCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-success" (click)="onAddDistributorClick($event)" [disabled]="newDistributorDisabled">
+            <span *ngIf="!newDistributorDisabled"><i class="fa fa-save"></i> Save</span>
+            <span *ngIf="newDistributorDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Edit Distributor Modal -->
+<form [formGroup]="editDistributorForm">
+  <div class="modal fade" id="editDistributorModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Update Distributor</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group form-row">
+            <label for="distributorName" class="col-form-label col-md-4">Distributor Name:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Distributor Name" class="form-control" id="distributorName" formControlName="distributorName" [ngClass]="getFormControlCssClass(editDistributorForm.get('distributorName'), editDistributorForm)" />
+              <small class="form-text text-muted">Name of the distributor | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'required', editDistributorForm)">{{getFormControlErrorMessage('distributorName', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'minlength', editDistributorForm)">{{getFormControlErrorMessage('distributorName', 'minlength')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorName', 'maxlength', editDistributorForm)">{{getFormControlErrorMessage('distributorName', 'maxlength')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="distributorMobile" class="col-form-label col-md-4">Mobile:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Mobile" class="form-control" id="distributorMobile" formControlName="distributorMobile" [ngClass]="getFormControlCssClass(editDistributorForm.get('distributorMobile'), editDistributorForm)" />
+              <small class="form-text text-muted">10 digit mobile number of the distributor | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorMobile', 'required', editDistributorForm)">{{getFormControlErrorMessage('distributorMobile', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('distributorMobile', 'pattern', editDistributorForm)">{{getFormControlErrorMessage('distributorMobile', 'pattern')}}</span>
+            </div>
+          </div>
+          <div class="form-group form-row">
+            <label for="email" class="col-form-label col-md-4">Email:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Email" class="form-control" id="email" formControlName="email" [ngClass]="getFormControlCssClass(editDistributorForm.get('email'), editDistributorForm)" />
+              <small class="form-text text-muted">Email address of the distributor | Can't be duplicate.</small>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('email', 'required', editDistributorForm)">{{getFormControlErrorMessage('email', 'required')}}</span>
+              <span class="text-danger" *ngIf="getCanShowFormControlErrorMessage('email', 'email', editDistributorForm)">{{getFormControlErrorMessage('email', 'email')}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" id="btnUpdateDistributorCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-success" (click)="onUpdateDistributorClick($event)" [disabled]="editDistributorDisabled">
+            <span *ngIf="!editDistributorDisabled"><i class="fa fa-save"></i> Save</span>
+            <span *ngIf="editDistributorDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Saving</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- Delete Distributor Modal -->
+<form [formGroup]="deleteDistributorForm">
+  <div class="modal fade" id="deleteDistributorModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">Delete Distributor</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 class="mb-4">Are you sure to delete this Distributor?</h5>
+          <div class="form-group form-row">
+            <label for="distributorName" class="col-form-label col-md-4">Distributor Name:</label>
+            <div class="col-md-8">
+              <input type="text" placeholder="Distributor Name" readonly="readonly" class="form-control-plaintext" id="distributorName" formControlName="distributorName" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" id="btnDeleteDistributorCancel">
+            <i class="fa fa-times-circle"></i> Cancel
+          </button>
+          <button type="submit" class="btn btn-danger" (click)="onDeleteDistributorConfirmClick($event)" [disabled]="deleteDistributorDisabled">
+            <span *ngIf="!deleteDistributorDisabled"><i class="fa fa-save"></i> Delete</span>
+            <span *ngIf="deleteDistributorDisabled"><i class="fa fa-circle-o-notch  fa-spin"></i> Deleting</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
